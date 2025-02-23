@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 class Program
 {
@@ -8,12 +8,16 @@ class Program
         Console.Write("Zadej první číslo: ");
         double num1 = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Zadej operátor (+, -, *, /): ");
+        Console.Write("Zadej operátor (+, -, *, /, ^, r): ");
         char oper = Console.ReadKey().KeyChar;
         Console.WriteLine();
 
-        Console.Write("Zadej druhé číslo: ");
-        double num2 = Convert.ToDouble(Console.ReadLine());
+        double num2 = 0;
+        if (oper != 'r')
+        {
+            Console.Write("Zadej druhé číslo: ");
+            num2 = Convert.ToDouble(Console.ReadLine());
+        }
 
         double result = 0;
         bool validOperation = true;
@@ -38,6 +42,18 @@ class Program
                     validOperation = false;
                 }
                 break;
+            case '^':
+                result = Math.Pow(num1, 2);
+                break;
+            case 'r':
+                if (num1 >= 0)
+                    result = Math.Sqrt(num1);
+                else
+                {
+                    Console.WriteLine("Chyba: Odmocnina záporného čísla není možná.");
+                    validOperation = false;
+                }
+                break;
             default:
                 Console.WriteLine("Neplatný operátor!");
                 validOperation = false;
@@ -45,7 +61,7 @@ class Program
         }
 
         if (validOperation)
-            Console.WriteLine($"Výsledek: {num1} {oper} {num2} = {result}");
+            Console.WriteLine($"Výsledek: {result}");
 
         Console.WriteLine("Stiskni libovolnou klávesu pro ukončení...");
         Console.ReadKey();
